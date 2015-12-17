@@ -27,7 +27,7 @@ prompt APPLICATION 111 - Lawoffice
 -- Application Export:
 --   Application:     111
 --   Name:            Lawoffice
---   Date and Time:   23:07 Tuesday December 15, 2015
+--   Date and Time:   01:08 Thursday December 17, 2015
 --   Exported By:     ADMIN
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -108,7 +108,7 @@ wwv_flow_api.create_flow(
 ,p_rejoin_existing_sessions=>'N'
 ,p_csv_encoding=>'Y'
 ,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20151215230616'
+,p_last_upd_yyyymmddhh24miss=>'20151217004243'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_ui_type_name => null
 );
@@ -132,8 +132,8 @@ wwv_flow_api.create_list_item(
 wwv_flow_api.create_list_item(
  p_id=>wwv_flow_api.id(5465515523223776)
 ,p_list_item_display_sequence=>20
-,p_list_item_link_text=>'Lawoffice'
-,p_list_item_link_target=>'f?p=&APP_ID.:2:&SESSION.::&DEBUG.'
+,p_list_item_link_text=>'Kancelaria prawna'
+,p_list_item_link_target=>'f?p=&APP_ID.:2:&SESSION.::&DEBUG.::::'
 ,p_parent_list_item_id=>wwv_flow_api.id(5455467984187566)
 ,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
 ,p_list_item_current_for_pages=>'2,3'
@@ -155,15 +155,6 @@ wwv_flow_api.create_list_item(
 ,p_parent_list_item_id=>wwv_flow_api.id(5455467984187566)
 ,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
 ,p_list_item_current_for_pages=>'6,7'
-);
-wwv_flow_api.create_list_item(
- p_id=>wwv_flow_api.id(5513876402525561)
-,p_list_item_display_sequence=>50
-,p_list_item_link_text=>'Faktura'
-,p_list_item_link_target=>'f?p=&APP_ID.:8:&SESSION.::&DEBUG.'
-,p_parent_list_item_id=>wwv_flow_api.id(5455467984187566)
-,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
-,p_list_item_current_for_pages=>'8,9'
 );
 wwv_flow_api.create_list_item(
  p_id=>wwv_flow_api.id(5529206649539235)
@@ -204,8 +195,8 @@ wwv_flow_api.create_list_item(
 wwv_flow_api.create_list_item(
  p_id=>wwv_flow_api.id(5635966501817526)
 ,p_list_item_display_sequence=>110
-,p_list_item_link_text=>'Kurs_walut'
-,p_list_item_link_target=>'f?p=&APP_ID.:22:&SESSION.::&DEBUG.'
+,p_list_item_link_text=>'Kurs walut'
+,p_list_item_link_target=>'f?p=&APP_ID.:22:&SESSION.::&DEBUG.::::'
 ,p_parent_list_item_id=>wwv_flow_api.id(5455467984187566)
 ,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
 ,p_list_item_current_for_pages=>'22,23'
@@ -339,8 +330,9 @@ wwv_flow_api.create_menu_option(
 );
 wwv_flow_api.create_menu_option(
  p_id=>wwv_flow_api.id(5469836061223806)
-,p_short_name=>'Lawoffice'
-,p_link=>'f?p=&APP_ID.:2:&SESSION.'
+,p_parent_id=>0
+,p_short_name=>'Kancelaria prawna'
+,p_link=>'f?p=&APP_ID.:2:&SESSION.::&DEBUG.:::'
 ,p_page_id=>2
 );
 wwv_flow_api.create_menu_option(
@@ -429,8 +421,9 @@ wwv_flow_api.create_menu_option(
 );
 wwv_flow_api.create_menu_option(
  p_id=>wwv_flow_api.id(5639438343817534)
-,p_short_name=>'Kurs_walut'
-,p_link=>'f?p=&APP_ID.:22:&SESSION.'
+,p_parent_id=>0
+,p_short_name=>'Kurs walut'
+,p_link=>'f?p=&APP_ID.:22:&SESSION.::&DEBUG.:::'
 ,p_page_id=>22
 );
 wwv_flow_api.create_menu_option(
@@ -463,8 +456,8 @@ wwv_flow_api.create_menu_option(
 wwv_flow_api.create_menu_option(
  p_id=>wwv_flow_api.id(5759790883169406)
 ,p_parent_id=>wwv_flow_api.id(5502296157273932)
-,p_short_name=>'Update '
-,p_link=>'f?p=&APP_ID.:7:&SESSION.'
+,p_short_name=>'Edytuj faktury '
+,p_link=>'f?p=&APP_ID.:7:&SESSION.::&DEBUG.:::'
 ,p_page_id=>7
 );
 wwv_flow_api.create_menu_option(
@@ -11894,7 +11887,7 @@ wwv_flow_api.create_page(
 ,p_cache_mode=>'NOCACHE'
 ,p_help_text=>'No help is available for this page.'
 ,p_last_updated_by=>'ADMIN'
-,p_last_upd_yyyymmddhh24miss=>'20151215230238'
+,p_last_upd_yyyymmddhh24miss=>'20151217004243'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(5833060620775508)
@@ -11960,12 +11953,14 @@ wwv_flow_api.create_flash_chart5_series(
 ,p_series_seq=>10
 ,p_series_name=>'Series 1'
 ,p_series_query=>wwv_flow_utilities.join(wwv_flow_t_varchar2(
-'select null link, country label, COUNT(*) value',
-'from  "BOOOB"."LOCATION"',
-' group by COUNTRY;'))
+'select null link, trans.en_name label, COUNT(*) value',
+'from  "BOOOB"."LOCATION" join COUNTRY_TRANSLATE trans on "BOOOB"."LOCATION".country = trans.pl_name',
+' group by trans.en_name;'))
+,p_series_type=>'Map'
 ,p_series_query_type=>'SQL_QUERY'
 ,p_series_query_no_data_found=>'no data found'
 ,p_series_query_row_count_max=>300
+,p_show_action_link=>'N'
 );
 end;
 /
@@ -13379,7 +13374,9 @@ end;
 /
 prompt --application/deployment/definition
 begin
-null;
+wwv_flow_api.create_install(
+ p_id=>wwv_flow_api.id(5836145174832051)
+);
 end;
 /
 prompt --application/deployment/install
